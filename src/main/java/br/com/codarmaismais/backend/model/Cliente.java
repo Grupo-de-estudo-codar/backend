@@ -20,6 +20,14 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos;
 
+    public Cliente() {
+
+    }
+
+    public Cliente(String nome) {
+        this.nome = nome;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -2,7 +2,7 @@ create table cliente (
     id int primary key auto_increment,
     nome varchar(255) not null,
     cpf varchar(11),
-    dataNascimento date
+    data_nascimento date
 );
 
 create table contato (
