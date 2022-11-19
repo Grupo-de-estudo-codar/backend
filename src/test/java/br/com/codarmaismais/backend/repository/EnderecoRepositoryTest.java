@@ -65,4 +65,17 @@ class EnderecoRepositoryTest {
         assertTrue(enderecos.size() > 0);
     }
 
+    @Test @DisplayName("Deve listar os enderecos de um cliente específico")
+    public void test6() {
+        Cliente cliente2 = new Cliente("Não pode listar o endereco desse cliente");
+        clienteRepository.save(cliente2);
+        Endereco endereco2 = new Endereco("Rua Não Lista", "000", "Bairro Não Lista", "Cidade Não Lista", "YY", cliente2);
+        enderecoRepository.save(endereco2);
+
+        List<Endereco> enderecos = enderecoRepository.findEnderecoByCliente(cliente);
+        assertNotNull( enderecos );
+        assertTrue(enderecos.size() > 0);
+        enderecos.forEach( endereco -> assertEquals(cliente.getId(), endereco.getCliente().getId()) );
+    }
+
 }
