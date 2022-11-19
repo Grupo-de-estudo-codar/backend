@@ -1,12 +1,14 @@
 package br.com.codarmaismais.backend.dto;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class ClienteInsertForm {
 
-    @NotBlank
+    @NotBlank @Max(255)
     private String nome;
+    @Max(11)
     private String cpf;
     private String dataNascimento;
 
