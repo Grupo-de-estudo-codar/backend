@@ -15,6 +15,9 @@ public class Contato implements Serializable {
     @ManyToOne
     private Cliente cliente;
 
+    public Contato() {
+    }
+
     public Contato(TipoContato tipoContato, String codigo, Cliente cliente) {
         this.tipoContato = tipoContato;
         this.codigo = codigo;
