@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -28,7 +29,7 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ClienteDto> insert(@RequestBody ClienteInsertForm clienteInsertForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ClienteDto> insert(@RequestBody @Valid ClienteInsertForm clienteInsertForm, UriComponentsBuilder uriBuilder) {
         Cliente cliente = modelMapper.map(clienteInsertForm, Cliente.class);
         clienteRepository.save(cliente);
 

@@ -1,9 +1,11 @@
 package br.com.codarmaismais.backend.dto;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class ClienteInsertForm {
 
+    @NotBlank
     private String nome;
     private String cpf;
     private String dataNascimento;
