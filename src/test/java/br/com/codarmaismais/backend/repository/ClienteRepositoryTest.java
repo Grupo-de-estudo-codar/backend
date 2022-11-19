@@ -22,7 +22,7 @@ class ClienteRepositoryTest {
 
     @BeforeEach
     public void beforeEach() {
-        clienteRepository.save(cliente);
+        clienteRepository.save( cliente );
     }
 
     @Test @DisplayName("Deve guardar um cliente no BD")

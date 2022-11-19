@@ -28,7 +28,7 @@ class ContatoRepositoryTest {
     @BeforeEach
     public void beforeEach() {
         clienteRepository.save( cliente );
-        contatoRepository.save(contato);
+        contatoRepository.save( contato );
     }
 
     @Test
