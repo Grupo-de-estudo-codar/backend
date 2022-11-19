@@ -21,8 +21,8 @@ public class ModelMapperConfig {
         ModelMapper modelMapper = new ModelMapper();
 
         // https://stackoverflow.com/questions/39454492/modelmapper-to-convert-from-string-to-localdate
-        DateTimeFormatter formatadorDeData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Converter<String, LocalDate> stringToLocalDate = contexto -> LocalDate.parse(contexto.getSource(),formatadorDeData);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Converter<String, LocalDate> stringToLocalDate = contexto -> LocalDate.parse(contexto.getSource(),formatter);
         modelMapper.createTypeMap(ClienteInsertForm.class, Cliente.class)
                 .addMappings(mapper -> mapper.using(stringToLocalDate)
                         .map(ClienteInsertForm::getDataNascimento, Cliente::setDataNascimento));
