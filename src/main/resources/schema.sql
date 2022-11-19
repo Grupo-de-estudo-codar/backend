@@ -9,8 +9,8 @@ create table contato (
     id int  primary key auto_increment,
     tipo_contato varchar(20) not null,
     codigo varchar(255) not null,
-    id_cliente int not null,
-        foreign key (id_cliente) references cliente(id)
+    cliente_id int not null,
+        foreign key (cliente_id) references cliente(id)
 );
 
 create table endereco (
@@ -22,6 +22,6 @@ create table endereco (
     bairro varchar(100) not null,
     cidade varchar(100) not null,
     uf varchar(2) not null,
-    id_cliente int not null,
-        foreign key (id_cliente) references cliente(id)
+    cliente_id int not null,
+        foreign key (cliente_id) references cliente(id)
 );
