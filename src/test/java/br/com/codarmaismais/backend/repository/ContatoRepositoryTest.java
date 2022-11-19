@@ -64,4 +64,17 @@ class ContatoRepositoryTest {
         assertTrue(contatos.size() > 0);
     }
 
+    @Test @DisplayName("Deve listar os contatos de um cliente específico")
+    public void test6() {
+        Cliente cliente2 = new Cliente("Não pode listar o contato desse cliente");
+        clienteRepository.save(cliente2);
+        Contato contato2 = new Contato(TipoContato.EMAIL, "nao_pode_exibir_esse_contato@teste.com",cliente2);
+        contatoRepository.save(contato2);
+
+        List<Contato> contatos = contatoRepository.findContatoByCliente(cliente);
+        assertNotNull( contatos );
+        assertTrue(contatos.size() > 0);
+        contatos.forEach( contato -> assertEquals(cliente.getId(), contato.getCliente().getId()) );
+    }
+
 }
