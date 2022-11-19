@@ -57,7 +57,7 @@ class ContatoRepositoryTest {
         assertTrue( contatoOpcional.isPresent() );
     }
 
-    @Test @DisplayName("Deve listar mais de um cliente no BD")
+    @Test @DisplayName("Deve listar mais de um contato no BD")
     public void test5() {
         List<Contato> contatos = contatoRepository.findAll();
         assertNotNull( contatos );
