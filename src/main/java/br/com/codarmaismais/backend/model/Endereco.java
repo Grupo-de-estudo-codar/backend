@@ -23,6 +23,18 @@ public class Endereco implements Serializable {
     @ManyToOne
     private Cliente cliente;
 
+    public Endereco() {
+    }
+
+    public Endereco(String logradouro, String numero, String bairro, String cidade, String uf, Cliente cliente) {
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.cliente = cliente;
+    }
+
     public Integer getId() {
         return id;
     }
