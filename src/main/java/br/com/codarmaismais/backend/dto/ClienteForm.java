@@ -1,11 +1,9 @@
 package br.com.codarmaismais.backend.dto;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
-public class ClienteInsertForm {
+public class ClienteForm {
 
     @NotBlank @Size(max = 255)
     private String nome;

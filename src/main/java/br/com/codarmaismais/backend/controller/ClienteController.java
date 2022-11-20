@@ -1,17 +1,15 @@
 package br.com.codarmaismais.backend.controller;
 
 import br.com.codarmaismais.backend.dto.ClienteDto;
-import br.com.codarmaismais.backend.dto.ClienteInsertForm;
+import br.com.codarmaismais.backend.dto.ClienteForm;
+import br.com.codarmaismais.backend.dto.ClienteUpdateForm;
 import br.com.codarmaismais.backend.exception.CpfJaCadastradoException;
 import br.com.codarmaismais.backend.model.Cliente;
 import br.com.codarmaismais.backend.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
@@ -30,7 +28,7 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ClienteDto> insert(@RequestBody @Valid ClienteInsertForm clienteInsertForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ClienteDto> insert(@RequestBody @Valid ClienteForm clienteInsertForm, UriComponentsBuilder uriBuilder) {
         if (clienteInsertForm.getCpf() != null && clienteRepository.findByCpf(clienteInsertForm.getCpf()).isPresent())
             throw new CpfJaCadastradoException("Cliente com CPF " + clienteInsertForm.getCpf() + " já cadastrado");
 
@@ -41,15 +39,15 @@ public class ClienteController {
         return ResponseEntity.created( uri ).body( modelMapper.map(cliente, ClienteDto.class) );
     }
 
-//    @PutMapping("{id}")
-//    @Transactional
-//    public ResponseEntity update(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateFormDto clienteUpdateFormDto, UriComponentsBuilder uriBuilder) {
-//        Cliente cliente = clienteRepository.getReferenceById(id);
-//        clienteUpdateFormDto.update( cliente );
-//        URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand( cliente.getClienteKey() ).toUri();
-//        return ResponseEntity.ok().body( new ClienteDetalhadoDto( cliente ) );
-//    }
-//
+    @PutMapping("{id}")
+    @Transactional
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody @Valid ClienteForm clienteUpdateForm, UriComponentsBuilder uriBuilder) {
+        Cliente cliente = clienteRepository.getReferenceById(id);
+        modelMapper.map(clienteUpdateForm, Cliente.class);
+        URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand( cliente.getId() ).toUri();
+        return ResponseEntity.ok().body( modelMapper.map(cliente, ClienteDto.class) );
+    }
+
 //    @DeleteMapping("{id}")
 //    @Transactional
 //    public ResponseEntity delete(@PathVariable Integer id) {
