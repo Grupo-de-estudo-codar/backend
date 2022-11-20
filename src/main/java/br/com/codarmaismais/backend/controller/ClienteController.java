@@ -2,6 +2,7 @@ package br.com.codarmaismais.backend.controller;
 
 import br.com.codarmaismais.backend.dto.ClienteDto;
 import br.com.codarmaismais.backend.dto.ClienteInsertForm;
+import br.com.codarmaismais.backend.exception.CpfJaCadastradoException;
 import br.com.codarmaismais.backend.model.Cliente;
 import br.com.codarmaismais.backend.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,9 @@ public class ClienteController {
     @PostMapping
     @Transactional
     public ResponseEntity<ClienteDto> insert(@RequestBody @Valid ClienteInsertForm clienteInsertForm, UriComponentsBuilder uriBuilder) {
+        if (clienteInsertForm.getCpf() != null && clienteRepository.findByCpf(clienteInsertForm.getCpf()).isPresent())
+            throw new CpfJaCadastradoException("Cliente com CPF " + clienteInsertForm.getCpf() + " já cadastrado");
+
         Cliente cliente = modelMapper.map(clienteInsertForm, Cliente.class);
         clienteRepository.save(cliente);
 

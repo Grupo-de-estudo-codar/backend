@@ -1,7 +1,7 @@
 create table cliente (
     id int primary key auto_increment,
     nome varchar(255) not null,
-    cpf varchar(11),
+    cpf varchar(11) unique,
     data_nascimento date
 );
 

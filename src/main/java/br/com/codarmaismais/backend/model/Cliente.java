@@ -13,6 +13,7 @@ public class Cliente implements Serializable {
     private Integer id;
     @Column(nullable = false)
     private String nome;
+    @Column(unique = true)
     private String cpf;
     private LocalDate dataNascimento;
     @OneToMany(mappedBy = "cliente")
