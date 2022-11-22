@@ -14,6 +14,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("cliente")
@@ -54,18 +56,18 @@ public class ClienteController {
         return ResponseEntity.ok("Cliente " + cliente.getNome() + " excluído com sucesso");
     }
 
-//    @GetMapping("{id}")
-//    public ResponseEntity findById(@PathVariable Integer id) {
-//        Cliente cliente = clienteRepository.getReferenceById(id);
-//        return ResponseEntity.ok( new ClienteDetalhadoDto( cliente ) );
-//    }
-//
-//    @GetMapping
-//    public List<ClienteDetalhadoDto> listAll() {
-//        List<Cliente> clientes = clienteRepository.findAll();
-//        List<ClienteDetalhadoDto> listaDto = new ArrayList<>();
-//
-//        clientes.forEach(cliente -> listaDto.add( new ClienteDetalhadoDto(cliente) ));
-//        return listaDto;
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable Integer id) {
+        Cliente cliente = clienteRepository.getReferenceById(id);
+        return ResponseEntity.ok( modelMapper.map(cliente, ClienteDto.class) );
+    }
+
+    @GetMapping
+    public List<ClienteDto> listAll() {
+        List<Cliente> clientes = clienteRepository.findAll();
+        List<ClienteDto> clientesDto = new ArrayList<>();
+
+        clientes.forEach(cliente -> clientesDto.add( modelMapper.map(cliente, ClienteDto.class) ));
+        return clientesDto;
+    }
 }
