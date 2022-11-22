@@ -3,6 +3,7 @@ package br.com.codarmaismais.backend.controller;
 import br.com.codarmaismais.backend.dto.ClienteDto;
 import br.com.codarmaismais.backend.dto.ClienteForm;
 import br.com.codarmaismais.backend.exception.CpfJaCadastradoException;
+import br.com.codarmaismais.backend.exception.CpfNaoEncontradoException;
 import br.com.codarmaismais.backend.model.Cliente;
 import br.com.codarmaismais.backend.repository.ClienteRepository;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("cliente")
@@ -56,10 +58,19 @@ public class ClienteController {
         return ResponseEntity.ok("Cliente " + cliente.getNome() + " excluído com sucesso");
     }
 
-    @GetMapping("{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity findById(@PathVariable Integer id) {
         Cliente cliente = clienteRepository.getReferenceById(id);
         return ResponseEntity.ok( modelMapper.map(cliente, ClienteDto.class) );
+    }
+
+    @GetMapping("cpf/{cpf}")
+    public ResponseEntity findByCpf(@PathVariable String cpf) {
+        Optional<Cliente> clienteOpcional = clienteRepository.findByCpf(cpf);
+        if (!clienteOpcional.isPresent())
+            throw new CpfNaoEncontradoException(cpf);
+
+        return ResponseEntity.ok( modelMapper.map(clienteOpcional.get(), ClienteDto.class) );
     }
 
     @GetMapping
