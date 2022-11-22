@@ -46,14 +46,14 @@ public class ClienteController {
         return ResponseEntity.ok().body( modelMapper.map(cliente, ClienteDto.class) );
     }
 
-//    @DeleteMapping("{id}")
-//    @Transactional
-//    public ResponseEntity delete(@PathVariable Integer id) {
-//        Cliente cliente = clienteRepository.getReferenceById(id);
-//        clienteRepository.delete(cliente);
-//        return ResponseEntity.ok(new MensagemDto("Cliente " + cliente.getNome() + " excluído com sucesso"));
-//    }
-//
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity delete(@PathVariable Integer id) {
+        Cliente cliente = clienteRepository.getReferenceById(id);
+        clienteRepository.delete(cliente);
+        return ResponseEntity.ok("Cliente " + cliente.getNome() + " excluído com sucesso");
+    }
+
 //    @GetMapping("{id}")
 //    public ResponseEntity findById(@PathVariable Integer id) {
 //        Cliente cliente = clienteRepository.getReferenceById(id);
