@@ -2,7 +2,6 @@ package br.com.codarmaismais.backend.controller;
 
 import br.com.codarmaismais.backend.dto.ClienteDto;
 import br.com.codarmaismais.backend.dto.ClienteForm;
-import br.com.codarmaismais.backend.dto.ClienteUpdateForm;
 import br.com.codarmaismais.backend.exception.CpfJaCadastradoException;
 import br.com.codarmaismais.backend.model.Cliente;
 import br.com.codarmaismais.backend.repository.ClienteRepository;
@@ -41,10 +40,9 @@ public class ClienteController {
 
     @PutMapping("{id}")
     @Transactional
-    public ResponseEntity update(@PathVariable Integer id, @RequestBody @Valid ClienteForm clienteUpdateForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ClienteDto> update(@PathVariable Integer id, @RequestBody @Valid ClienteForm clienteForm, UriComponentsBuilder uriBuilder) {
         Cliente cliente = clienteRepository.getReferenceById(id);
-        modelMapper.map(clienteUpdateForm, Cliente.class);
-        URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand( cliente.getId() ).toUri();
+        modelMapper.map(clienteForm, cliente);
         return ResponseEntity.ok().body( modelMapper.map(cliente, ClienteDto.class) );
     }
 
