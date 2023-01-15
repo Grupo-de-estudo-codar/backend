@@ -7,8 +7,17 @@ Inicialização com Spring Boot:
     <img src="readme/print_spring_boot.png" alt="Print da inicializaçao com Spring Boot">
 </div>
 
-Login do banco de dados de teste (H2 Console)
-<div>
-    <img src="readme/print_h2_console_testdb.png" alt="Print da tela de login do H2 Console">
-</div>
-<sub><sup>* Senha: sa </sup></sub>
+### Inicialização com Docker ###
+
+Abra o terminal no diretório do projeto e execute o comando abaixo para iniciar a imagem do projeto:
+
+docker compose up -d
+
+Com este comando, você inicializará uma instância do banco de dados postgres já configurada no arquivo docker-compose.yml.
+que fará com que o banco de dados rode na porta 5435.
+
+### Inicialização do projeto ###
+
+Para inicializar o projeto, basta executar o backend application.
+
+<sub><sup>* Login e Senha: movimentocodar </sup></sub>
